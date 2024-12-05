@@ -5,4 +5,5 @@ abstract class AppAssets {
   static const browseIcon = '$base/browse_icon.png';
   static const watchListIcon = '$base/watch_list_icon.png';
   static const addBookMarkIcon = '$base/add_bookmark_icon.png';
+  static const bookMarkIcon = '$base/bookmark_icon.png';
 }

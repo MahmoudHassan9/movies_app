@@ -11,6 +11,8 @@ import 'package:movies_app/domain/usecases/get_popular_movies_use_case.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/home_view_model.dart';
 import 'package:movies_app/presentation/tabs/home/widgets/movies_slider_image.dart';
 
+import '../widgets/movies_slider.dart';
+
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
@@ -19,10 +21,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<Widget> images = [
-    const MoviesSliderImage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -34,31 +32,12 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
         ),
-      ),
-      child: Column(
+      )..getPopularMovies(),
+      child: const Column(
         children: [
-          moviesSlider(),
+          MoviesSlider(),
         ],
       ),
     );
   }
-
-  Widget moviesSlider() => CarouselSlider(
-        items: images,
-        options: CarouselOptions(
-          height: 289.h,
-          aspectRatio: 16 / 9,
-          viewportFraction: 1,
-          initialPage: 0,
-          enableInfiniteScroll: true,
-          reverse: false,
-          autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlayAnimationDuration: const Duration(milliseconds: 800),
-          autoPlayCurve: Curves.fastOutSlowIn,
-          enlargeCenterPage: true,
-          enlargeFactor: 0.3,
-          scrollDirection: Axis.horizontal,
-        ),
-      );
 }
