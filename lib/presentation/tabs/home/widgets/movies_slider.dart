@@ -46,7 +46,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
       },
     );
   }
-
+//
   Widget slider({required images}) => CarouselSlider(
         items: images,
         options: CarouselOptions(
