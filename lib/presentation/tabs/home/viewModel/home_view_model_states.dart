@@ -1,6 +1,6 @@
 import 'package:movies_app/data/models/popular_movie.dart';
 
- class HomeViewModelState {}
+sealed class HomeViewModelState {}
 
 class GetPopularMoviesInitialState extends HomeViewModelState {}
 

@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/data/models/popular_movie.dart';
 
 import '../../../../core/utils/app_assets.dart';
 
-class MoviesSliderImage extends StatelessWidget {
-  const MoviesSliderImage({
+class MoviesImageSlider extends StatelessWidget {
+  const MoviesImageSlider({
     super.key,
-    required this.bgPath,
-    required this.posterPath,
+    required this.movie,
   });
 
-  final String bgPath;
-  final String posterPath;
+  final PopularMovie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MoviesSliderImage extends StatelessWidget {
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(
-              bgPath,
+              AppConstants.imageBase + movie.backdropPath!,
             ),
           ),
         ),
@@ -43,12 +43,13 @@ class MoviesSliderImage extends StatelessWidget {
         child: Container(
           height: 199.h,
           width: 129.w,
+          padding: EdgeInsets.zero,
           alignment: Alignment.topLeft,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                posterPath,
+                AppConstants.imageBase + movie.posterPath!,
               ),
             ),
             borderRadius: const BorderRadius.all(
