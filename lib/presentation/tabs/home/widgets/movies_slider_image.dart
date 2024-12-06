@@ -84,7 +84,7 @@ class MoviesImageSlider extends StatelessWidget {
           ),
         ),
       );
-
+// comment
   Widget imageDetails() => Positioned(
         left: 164.w,
         bottom: 10.h,
@@ -103,7 +103,9 @@ class MoviesImageSlider extends StatelessWidget {
                   movie.releaseDate ?? '',
                   style: AppStyles.popularMovieDesc,
                 ),
-                SizedBox(width: 10.w,),
+                SizedBox(
+                  width: 10.w,
+                ),
                 Text(
                   movie.voteCount.toString() ?? '',
                   style: AppStyles.popularMovieDesc,
