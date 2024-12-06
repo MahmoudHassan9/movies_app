@@ -84,7 +84,9 @@ class MoviesImageSlider extends StatelessWidget {
           ),
         ),
       );
+
 // comment
+// test
   Widget imageDetails() => Positioned(
         left: 164.w,
         bottom: 10.h,
