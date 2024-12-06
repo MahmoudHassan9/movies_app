@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/data/models/popular_movie.dart';
+import 'package:movies_app/presentation/common/loading_widget.dart';
 
 import '../../../../core/utils/app_assets.dart';
 
@@ -25,17 +27,19 @@ class MoviesImageSlider extends StatelessWidget {
     );
   }
 
-  Widget imageBackGround() => Container(
-        height: 217.h,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              AppConstants.imageBase + movie.backdropPath!,
+  Widget imageBackGround() => CachedNetworkImage(
+      imageUrl: AppConstants.imageBase + movie.backdropPath!,
+      imageBuilder: (context, imageProvider) => Container(
+            height: 217.h,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
-        ),
-      );
+      placeholder: (context, url) => const LoadingWidget(),
+      errorWidget: (context, url, error) => const Icon(Icons.error));
 
   Widget imagePoster() => Positioned(
         bottom: 0.h,
@@ -83,10 +87,30 @@ class MoviesImageSlider extends StatelessWidget {
 
   Widget imageDetails() => Positioned(
         left: 164.w,
-        bottom: 40.h,
-        child: const Text(
-          'data',
-          style: TextStyle(color: Colors.white),
+        bottom: 10.h,
+        child: Column(
+          children: [
+            Text(
+              movie.title ?? '',
+              style: AppStyles.popularMovieTitle,
+            ),
+            SizedBox(
+              height: 8.h,
+            ),
+            Row(
+              children: [
+                Text(
+                  movie.releaseDate ?? '',
+                  style: AppStyles.popularMovieDesc,
+                ),
+                SizedBox(width: 10.w,),
+                Text(
+                  movie.voteCount.toString() ?? '',
+                  style: AppStyles.popularMovieDesc,
+                ),
+              ],
+            ),
+          ],
         ),
       );
 }
