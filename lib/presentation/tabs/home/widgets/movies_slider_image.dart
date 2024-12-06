@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/core/utils/app_styles.dart';
-import 'package:movies_app/data/models/popular_movie.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 
 import '../../../../core/utils/app_assets.dart';
+import '../../../../data/models/popular_movie_response/popular_movie.dart';
 
 class MoviesImageSlider extends StatelessWidget {
   const MoviesImageSlider({
@@ -85,8 +85,6 @@ class MoviesImageSlider extends StatelessWidget {
         ),
       );
 
-// comment
-// test
   Widget imageDetails() => Positioned(
         left: 164.w,
         bottom: 10.h,

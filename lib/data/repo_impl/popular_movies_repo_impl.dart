@@ -1,9 +1,9 @@
 import 'package:movies_app/data/data_source_contract/popular_movies_data_source_contract.dart';
-import 'package:movies_app/data/models/popular_movie.dart';
 
 import 'package:movies_app/result.dart';
 
 import '../../domain/repo_contract/popular_movies_repo.dart';
+import '../models/popular_movie_response/popular_movie.dart';
 
 class PopularMoviesRepoImpl extends PopularMoviesRepo {
   PopularMoviesDataSource dataSource;

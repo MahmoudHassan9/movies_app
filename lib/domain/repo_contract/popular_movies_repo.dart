@@ -1,4 +1,4 @@
-import '../../data/models/popular_movie.dart';
+import '../../data/models/popular_movie_response/popular_movie.dart';
 import '../../result.dart';
 
 abstract class PopularMoviesRepo{
