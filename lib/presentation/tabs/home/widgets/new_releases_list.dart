@@ -36,7 +36,10 @@ class NewReleasesList extends StatelessWidget {
         builder: (BuildContext context, GetNewReleasesMoviesState state) {
           switch (state) {
             case GetNewReleasesMoviesLoadingState():
-              return const LoadingWidget();
+              return SizedBox(
+                height: 187.h,
+                child: const LoadingWidget(),
+              );
 
             case GetNewReleasesMoviesSuccessState():
               return newReleasesList(state);

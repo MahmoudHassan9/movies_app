@@ -38,7 +38,7 @@ class RecommendedList extends StatelessWidget {
             case GetRecommendedMovieInitialState():
               return const SizedBox();
             case GetRecommendedMovieLoadingState():
-              return const LoadingWidget();
+              return SizedBox(height: 187.h, child: const LoadingWidget());
             case GetRecommendedMovieSuccessState():
               return recommendedList(state);
             case GetRecommendedMovieErrorState():
