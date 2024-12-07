@@ -28,18 +28,23 @@ class MoviesImageSlider extends StatelessWidget {
   }
 
   Widget imageBackGround() => CachedNetworkImage(
-      imageUrl: AppConstants.imageBase + movie.backdropPath!,
-      imageBuilder: (context, imageProvider) => Container(
-            height: 217.h,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
-              ),
+        imageUrl: movie.backdropPath == null
+            ? AppConstants.errorImaga
+            : AppConstants.imageBase + movie.backdropPath!,
+        imageBuilder: (context, imageProvider) => Container(
+          height: 217.h,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: imageProvider,
+              fit: BoxFit.cover,
             ),
           ),
-      placeholder: (context, url) => const LoadingWidget(),
-      errorWidget: (context, url, error) => const Icon(Icons.error));
+        ),
+        placeholder: (context, url) => const LoadingWidget(),
+        errorWidget: (context, url, error) => const Icon(
+          Icons.error,
+        ),
+      );
 
   Widget imagePoster() => Positioned(
         bottom: 0.h,
@@ -47,13 +52,14 @@ class MoviesImageSlider extends StatelessWidget {
         child: Container(
           height: 199.h,
           width: 129.w,
-          padding: EdgeInsets.zero,
           alignment: Alignment.topLeft,
           decoration: BoxDecoration(
             image: DecorationImage(
               fit: BoxFit.cover,
               image: NetworkImage(
-                AppConstants.imageBase + movie.posterPath!,
+                movie.posterPath == null
+                    ? AppConstants.errorImaga
+                    : AppConstants.imageBase + movie.posterPath!,
               ),
             ),
             borderRadius: const BorderRadius.all(

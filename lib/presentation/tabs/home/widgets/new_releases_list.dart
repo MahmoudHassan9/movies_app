@@ -38,40 +38,7 @@ class NewReleasesList extends StatelessWidget {
               return const LoadingWidget();
 
             case GetNewReleasesMoviesSuccessState():
-              return Container(
-                height: 187.h,
-                padding: REdgeInsets.only(
-                  top: 15,
-                  bottom: 15,
-                  left: 27,
-                ),
-                color: AppColors.gray,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      'New Releases',
-                      style: AppStyles.newReleasesListTitle,
-                    ),
-                    SizedBox(
-                      height: 13.h,
-                    ),
-                    Expanded(
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => newReleasesListItem(
-                          movie: state.list[index],
-                        ),
-                        itemCount: 10,
-                        separatorBuilder: (context, index) => SizedBox(
-                          width: 14.w,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
+              return newReleasesList(state);
 
             case GetNewReleasesMoviesErrorState():
               return const Text('Error');
@@ -82,6 +49,43 @@ class NewReleasesList extends StatelessWidget {
         },
       ),
     );
+  }
+
+  Widget newReleasesList(GetNewReleasesMoviesSuccessState state) {
+    return Container(
+              height: 187.h,
+              padding: REdgeInsets.only(
+                top: 15,
+                bottom: 15,
+                left: 20,
+              ),
+              color: AppColors.gray,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'New Releases',
+                    style: AppStyles.homeListTitle,
+                  ),
+                  SizedBox(
+                    height: 13.h,
+                  ),
+                  Expanded(
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) => newReleasesListItem(
+                        movie: state.list[index],
+                      ),
+                      itemCount: state.list.length,
+                      separatorBuilder: (context, index) => SizedBox(
+                        width: 14.w,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
   }
 
   Widget newReleasesListItem({required NewReleaseMovie movie}) => Container(
