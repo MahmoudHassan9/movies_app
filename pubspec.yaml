@@ -41,6 +41,7 @@ dependencies:
   flutter_bloc: ^8.1.6
   cached_network_image: ^3.4.1
   google_fonts: ^6.2.1
+  redacted: ^1.0.12
 
 dev_dependencies:
   flutter_test:

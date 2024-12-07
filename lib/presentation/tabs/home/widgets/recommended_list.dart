@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,39 +88,51 @@ class RecommendedList extends StatelessWidget {
 
   Widget recommendedListItem({required RecommendedMovie movie}) => Column(
         children: [
-          Container(
-            height: 128.h,
-            width: 97.w,
-            alignment: Alignment.topLeft,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.cover,
-                image: NetworkImage(
-                  AppConstants.imageBase + movie.posterPath!,
+          Stack(
+            children: [
+              CachedNetworkImage(
+                height: 128.h,
+                width: 97.w,
+                imageUrl: movie.posterPath == null
+                    ? AppConstants.errorImaga
+                    : AppConstants.imageBase + movie.posterPath!,
+                imageBuilder: (context, imageProvider) => Container(
+                  // height: 128.h,
+                  // width: 97.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.r),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                placeholder: (context, url) => const LoadingWidget(),
+                errorWidget: (context, url, error) => const Icon(
+                  Icons.error,
                 ),
               ),
-              borderRadius: BorderRadius.circular(4.r),
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                const ImageIcon(
-                  size: 40,
-                  color: Color(0xFF514F4F),
-                  AssetImage(
-                    AppAssets.bookMarkIcon,
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  const ImageIcon(
+                    size: 40,
+                    color: Color(0xFF514F4F),
+                    AssetImage(
+                      AppAssets.bookMarkIcon,
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: REdgeInsets.only(bottom: 6),
-                  child: const Icon(
-                    Icons.add,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                )
-              ],
-            ),
+                  Padding(
+                    padding: REdgeInsets.only(bottom: 6),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  )
+                ],
+              ),
+            ],
           ),
           Container(
             width: 97.w,
@@ -152,7 +165,9 @@ class RecommendedList extends StatelessWidget {
                     )
                   ],
                 ),
-                SizedBox(height: 5.h,),
+                SizedBox(
+                  height: 5.h,
+                ),
                 Text(
                   movie.title!,
                   style: AppStyles.rateText,

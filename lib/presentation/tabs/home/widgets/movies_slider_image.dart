@@ -28,11 +28,12 @@ class MoviesImageSlider extends StatelessWidget {
   }
 
   Widget imageBackGround() => CachedNetworkImage(
+        height: 217.h,
         imageUrl: movie.backdropPath == null
             ? AppConstants.errorImaga
             : AppConstants.imageBase + movie.backdropPath!,
         imageBuilder: (context, imageProvider) => Container(
-          height: 217.h,
+          // height: 217.h,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: imageProvider,
@@ -49,45 +50,51 @@ class MoviesImageSlider extends StatelessWidget {
   Widget imagePoster() => Positioned(
         bottom: 0.h,
         left: 21.w,
-        child: Container(
-          height: 199.h,
-          width: 129.w,
-          alignment: Alignment.topLeft,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: NetworkImage(
-                movie.posterPath == null
-                    ? AppConstants.errorImaga
-                    : AppConstants.imageBase + movie.posterPath!,
-              ),
-            ),
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                4,
-              ),
-            ),
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              const ImageIcon(
-                size: 40,
-                color: Color(0xFF514F4F),
-                AssetImage(
-                  AppAssets.bookMarkIcon,
+        child: Stack(
+          children: [
+            CachedNetworkImage(
+              height: 199.h,
+              width: 129.w,
+              imageUrl: movie.posterPath == null
+                  ? AppConstants.errorImaga
+                  : AppConstants.imageBase + movie.posterPath!,
+              imageBuilder: (context, imageProvider) => Container(
+                // height: 199.h,
+                // width: 129.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.r),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Padding(
-                padding: REdgeInsets.only(bottom: 6),
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 20,
+              placeholder: (context, url) => const LoadingWidget(),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+              ),
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                const ImageIcon(
+                  size: 40,
+                  color: Color(0xFF514F4F),
+                  AssetImage(
+                    AppAssets.bookMarkIcon,
+                  ),
                 ),
-              )
-            ],
-          ),
+                Padding(
+                  padding: REdgeInsets.only(bottom: 6),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
+          ],
         ),
       );
 
