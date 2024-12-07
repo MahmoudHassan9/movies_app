@@ -116,25 +116,29 @@ class NewReleasesList extends StatelessWidget {
               Icons.error,
             ),
           ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              const ImageIcon(
-                size: 40,
-                color: Color(0xFF514F4F),
-                AssetImage(
-                  AppAssets.bookMarkIcon,
+          Positioned(
+            top: 0,
+            left: -5.5.w,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                const ImageIcon(
+                  size: 40,
+                  color: Color(0xFF514F4F),
+                  AssetImage(
+                    AppAssets.bookMarkIcon,
+                  ),
                 ),
-              ),
-              Padding(
-                padding: REdgeInsets.only(bottom: 6),
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 20,
-                ),
-              )
-            ],
+                Padding(
+                  padding: REdgeInsets.only(bottom: 6),
+                  child: const Icon(
+                    Icons.add,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
           ),
         ],
       );
