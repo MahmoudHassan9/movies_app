@@ -10,6 +10,8 @@ import 'package:movies_app/presentation/tabs/home/widgets/recommended_list.dart'
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../data/models/recommended_movie_response/recommended_movie.dart';
+import '../widgets/movies_slider.dart';
+import '../widgets/new_releases_list.dart';
 
 
 class HomeView extends StatefulWidget {
