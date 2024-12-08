@@ -2,14 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_impl/popular_movies_api_data_source.dart';
 import 'package:movies_app/data/repo_impl/popular_movies_repo_impl.dart';
 import 'package:movies_app/domain/repo_contract/popular_movies_repo.dart';
 import 'package:movies_app/domain/usecases/get_popular_movies_use_case.dart';
-
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/routing/routes.dart';
