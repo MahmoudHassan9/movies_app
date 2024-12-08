@@ -13,4 +13,14 @@ abstract class AppStyles {
     fontSize: 10.sp,
     color: const Color(0xFFB5B4B4),
   );
+  static TextStyle homeListTitle = GoogleFonts.inter(
+    fontWeight: FontWeight.w400,
+    fontSize: 15.sp,
+    color: Colors.white,
+  );
+  static TextStyle rateText = GoogleFonts.poppins(
+    fontWeight: FontWeight.w400,
+    fontSize: 10.sp,
+    color: Colors.white,
+  );
 }

@@ -1,19 +1,20 @@
-import 'package:movies_app/data/models/popular_movie.dart';
 
-class PopularMovieResponse {
-  PopularMovieResponse({
+import 'package:movies_app/data/models/recommended_movie_response/recommended_movie.dart';
+
+class RecommendedMovieResponse {
+  RecommendedMovieResponse({
     this.page,
     this.results,
     this.totalPages,
     this.totalResult,
   });
 
-  PopularMovieResponse.fromJson(dynamic json) {
+  RecommendedMovieResponse.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];
       json['results'].forEach((v) {
-        results?.add(PopularMovie.fromJson(v));
+        results?.add(RecommendedMovie.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
@@ -21,7 +22,7 @@ class PopularMovieResponse {
   }
 
   num? page;
-  List<PopularMovie>? results;
+  List<RecommendedMovie>? results;
   num? totalPages;
   num? totalResult;
 
