@@ -1,7 +1,7 @@
-import '../../data/models/popular_movie_response/popular_movie.dart';
+import '../../data/models/movie.dart';
 import '../../result.dart';
 
 abstract class PopularMoviesRepo{
-  Future<Result<List<PopularMovie>>> getPopularMovies();
+  Future<Result<List<Movie>>> getPopularMovies();
 
 }

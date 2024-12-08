@@ -6,7 +6,7 @@ import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 
 import '../../../../core/utils/app_assets.dart';
-import '../../../../data/models/popular_movie_response/popular_movie.dart';
+import '../../../../data/models/movie.dart';
 
 class MoviesImageSlider extends StatelessWidget {
   const MoviesImageSlider({
@@ -14,7 +14,7 @@ class MoviesImageSlider extends StatelessWidget {
     required this.movie,
   });
 
-  final PopularMovie movie;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -27,24 +27,36 @@ class MoviesImageSlider extends StatelessWidget {
     );
   }
 
-  Widget imageBackGround() => CachedNetworkImage(
-        height: 217.h,
-        imageUrl: movie.backdropPath == null
-            ? AppConstants.errorImaga
-            : AppConstants.imageBase + movie.backdropPath!,
-        imageBuilder: (context, imageProvider) => Container(
-          // height: 217.h,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover,
+  Widget imageBackGround() => Stack(
+        alignment: Alignment.center,
+        children: [
+          CachedNetworkImage(
+            height: 217.h,
+            imageUrl: movie.backdropPath == null
+                ? AppConstants.errorImaga
+                : AppConstants.imageBase + movie.backdropPath!,
+            imageBuilder: (context, imageProvider) => Container(
+              // height: 217.h,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            placeholder: (context, url) => const LoadingWidget(),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.error,
             ),
           ),
-        ),
-        placeholder: (context, url) => const LoadingWidget(),
-        errorWidget: (context, url, error) => const Icon(
-          Icons.error,
-        ),
+          ImageIcon(
+            const AssetImage(
+              AppAssets.playButtonIcon,
+            ),
+            color: Colors.white,
+            size: 60.sp,
+          ),
+        ],
       );
 
   Widget imagePoster() => Positioned(
@@ -106,6 +118,7 @@ class MoviesImageSlider extends StatelessWidget {
         left: 164.w,
         bottom: 10.h,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               movie.title ?? '',
@@ -114,20 +127,9 @@ class MoviesImageSlider extends StatelessWidget {
             SizedBox(
               height: 8.h,
             ),
-            Row(
-              children: [
-                Text(
-                  movie.releaseDate ?? '',
-                  style: AppStyles.popularMovieDesc,
-                ),
-                SizedBox(
-                  width: 10.w,
-                ),
-                Text(
-                  movie.voteCount.toString() ?? '',
-                  style: AppStyles.popularMovieDesc,
-                ),
-              ],
+            Text(
+              movie.releaseDate ?? '',
+              style: AppStyles.popularMovieDesc,
             ),
           ],
         ),

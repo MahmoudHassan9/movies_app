@@ -4,17 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/data/data_source_impl/recommended_movies_api_data_source_impl.dart';
-import 'package:movies_app/data/models/recommended_movie_response/recommended_movie.dart';
 import 'package:movies_app/data/repo_impl/recommended_movies_repo_impl.dart';
 import 'package:movies_app/domain/usecases/get_recommended_movies_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/recommended_movie_cubit.dart';
+import 'package:movies_app/routing/routes.dart';
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../data/api/api_manager.dart';
+import '../../../../data/models/movie.dart';
 import '../viewModel/states/recommended_movie_state.dart';
 
 class RecommendedList extends StatelessWidget {
@@ -51,7 +52,7 @@ class RecommendedList extends StatelessWidget {
 
   Widget recommendedList(GetRecommendedMovieSuccessState state) {
     return Container(
-      height: 250.h,
+      height: 265.h,
       padding: REdgeInsets.only(
         top: 15,
         bottom: 15,
@@ -72,8 +73,17 @@ class RecommendedList extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => recommendedListItem(
-                movie: state.list[index],
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.movieDetails,
+                    arguments: state.list[index],
+                  );
+                },
+                child: recommendedListItem(
+                  movie: state.list[index],
+                ),
               ),
               itemCount: state.list.length,
               separatorBuilder: (context, index) => SizedBox(
@@ -86,7 +96,7 @@ class RecommendedList extends StatelessWidget {
     );
   }
 
-  Widget recommendedListItem({required RecommendedMovie movie}) => Column(
+  Widget recommendedListItem({required Movie movie}) => Column(
         children: [
           Stack(
             children: [
@@ -140,9 +150,9 @@ class RecommendedList extends StatelessWidget {
           ),
           Container(
             width: 97.w,
-            padding: REdgeInsets.all(6),
+            padding: REdgeInsets.only(top: 6, bottom: 10, left: 6, right: 6),
             decoration: BoxDecoration(
-              color: AppColors.gray,
+              color: AppColors.grayAccent,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(4.r),
                 bottomRight: Radius.circular(4.r),
@@ -177,6 +187,13 @@ class RecommendedList extends StatelessWidget {
                   style: AppStyles.rateText,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  movie.releaseDate!,
+                  style: AppStyles.popularMovieDesc.copyWith(fontSize: 8),
                 ),
               ],
             ),

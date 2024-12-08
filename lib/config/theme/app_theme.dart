@@ -12,7 +12,12 @@ abstract class AppTheme {
       unselectedItemColor: AppColors.unSelectedBottomNavBarItem,
       elevation: 10,
       showSelectedLabels: true,
-
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Colors.transparent,
+      iconTheme: IconThemeData(
+        color: Colors.white,
+      ),
     ),
   );
 }

@@ -2,15 +2,15 @@
 
 import '../movie.dart';
 
-class PopularMovieResponse {
-  PopularMovieResponse({
+class MoreLikeThisMoviesResponse {
+  MoreLikeThisMoviesResponse({
     this.page,
     this.results,
     this.totalPages,
     this.totalResult,
   });
 
-  PopularMovieResponse.fromJson(dynamic json) {
+  MoreLikeThisMoviesResponse.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];

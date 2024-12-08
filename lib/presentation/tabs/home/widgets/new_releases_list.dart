@@ -5,12 +5,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_impl/new_releases_movies_api_data_source_impl.dart';
-import 'package:movies_app/data/models/new_release_movie_response/new_releases_movie.dart';
 import 'package:movies_app/data/repo_impl/new_releases_movie_impl.dart';
 import 'package:movies_app/domain/usecases/get_new_releases_movie_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/new_releases_movie_cubit.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/states/get_new_releases_movies_states.dart';
+import 'package:movies_app/routing/routes.dart';
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -78,8 +78,17 @@ class NewReleasesList extends StatelessWidget {
           Expanded(
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) => newReleasesListItem(
-                movie: state.list[index],
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.movieDetails,
+                    arguments: state.list[index],
+                  );
+                },
+                child: newReleasesListItem(
+                  movie: state.list[index],
+                ),
               ),
               itemCount: state.list.length,
               separatorBuilder: (context, index) => SizedBox(

@@ -1,4 +1,5 @@
-import '../../../../../data/models/recommended_movie_response/recommended_movie.dart';
+
+import '../../../../../data/models/movie.dart';
 
 sealed class RecommendedMovieState {}
 
@@ -7,7 +8,7 @@ class GetRecommendedMovieInitialState extends RecommendedMovieState {}
 class GetRecommendedMovieLoadingState extends RecommendedMovieState {}
 
 class GetRecommendedMovieSuccessState extends RecommendedMovieState {
-  List<RecommendedMovie> list;
+  List<Movie> list;
 
   GetRecommendedMovieSuccessState({required this.list});
 }
