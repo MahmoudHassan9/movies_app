@@ -28,7 +28,12 @@ abstract class AppStyles {
 
   static TextStyle movieDetailsName = GoogleFonts.poppins(
     color: Colors.white,
-    fontSize: 20.sp,
+    fontSize: 12.sp,
+    fontWeight: FontWeight.w300,
+  );
+  static TextStyle movieDetailsAppBar = GoogleFonts.poppins(
+    color: Colors.white,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w600,
   );
   static TextStyle movieDetailsReleaseDate = GoogleFonts.poppins(

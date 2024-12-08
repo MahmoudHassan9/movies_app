@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/core/utils/app_colors.dart';
+import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/data/models/movie_categories/Genres.dart';
 import 'package:movies_app/data/models/movie_categories_details/Results.dart';
 import '../../../../../data/api/api_manager.dart';
@@ -11,25 +13,46 @@ class CategoryDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ApiManager.getResults(genres.id.toString()),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(child: Text('Error: ${snapshot.error}'));
-        } else {
-          List<Results> results = snapshot.data?.results ?? [];
-          if (results.isEmpty) {
-            return const Center(child: Text('No results found.'));
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.scaffoldBg,
+        title: Text(genres.name ?? '' , style: AppStyles.movieDetailsAppBar,),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: () => Navigator.pop(context),
+          child: const Icon(Icons.arrow_back_outlined , color: Colors.white , size: 28),
+        ),
+      ),
+      body: FutureBuilder(
+        future: ApiManager.getResults(genres.id.toString()),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return  const Center(child: CircularProgressIndicator(
+              color: AppColors.yellow,
+            ));
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else {
+            List<Results> results = snapshot.data?.results ?? [];
+            if (results.isEmpty) {
+              return const Center(child: Text('No results found'));
+            }
+            return GridView.builder(
+              itemCount: results.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                childAspectRatio: 0.7,
+                crossAxisSpacing: 0,
+                mainAxisSpacing: 0
+              ),
+              itemBuilder: (context, index) =>
+                  InkWell(
+                    onTap: () => print(results[index].id),
+                      child: CategoryDetailsItem(results: results[index])),
+            );
           }
-          return ListView.builder(
-            itemCount: results.length,
-            itemBuilder: (context, index) =>
-                CategoryDetailsItem(results: results[index]),
-          );
-        }
-      },
+        },
+      )
     );
   }
 }

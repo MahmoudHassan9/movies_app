@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_strings.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/models/movie_categories/Genres.dart';
@@ -22,7 +23,9 @@ class _BrowesViewState extends State<BrowesView> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: AppColors.yellow,
+            ),
           );
         } else if (snapshot.hasError) {
           return Text(snapshot.error.toString());
@@ -32,7 +35,7 @@ class _BrowesViewState extends State<BrowesView> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: REdgeInsets.only(left: 12, top: 12, bottom: 12),
+                padding: REdgeInsets.only(left: 12, top: 18),
                 child: Text(
                   AppStrings.browseTitle,
                   style: AppStyles.browseTitle,
@@ -41,21 +44,18 @@ class _BrowesViewState extends State<BrowesView> {
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: (BuildContext context, int index) => Padding(
-                    padding: REdgeInsets.all(8.0),
-                    child: InkWell(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      CategoryDetailsView(genres: genres[index])));
-                        },
-                        child: CategoryItemView(
-                          genres: genres[index],
-                        )),
-                  ),
+                      crossAxisCount: 2, childAspectRatio: 1.2),
+                  itemBuilder: (BuildContext context, int index) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CategoryDetailsView(
+                                    genres: genres[index])));
+                      },
+                      child: CategoryItemView(
+                        genres: genres[index],
+                      )),
                   itemCount: genres.length,
                 ),
               ),
