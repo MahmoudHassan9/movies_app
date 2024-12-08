@@ -10,6 +10,7 @@ import 'package:movies_app/domain/repo_contract/popular_movies_repo.dart';
 import 'package:movies_app/domain/usecases/get_popular_movies_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/routing/routes.dart';
 
 import '../viewModel/states/get_popular_movies_states.dart';
 import 'movies_slider_image.dart';
@@ -46,8 +47,17 @@ class _MoviesSliderState extends State<MoviesSlider> {
               {
                 var images = state.list
                     .map(
-                      (movie) => MoviesImageSlider(
-                        movie: movie,
+                      (movie) => GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.movieDetails,
+                            arguments: movie,
+                          );
+                        },
+                        child: MoviesImageSlider(
+                          movie: movie,
+                        ),
                       ),
                     )
                     .toList();
@@ -62,6 +72,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
       ),
     );
   }
+
 //
   Widget slider({required images}) => CarouselSlider(
         items: images,

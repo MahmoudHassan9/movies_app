@@ -1,6 +1,6 @@
-import 'package:movies_app/data/models/recommended_movie_response/recommended_movie.dart';
 import 'package:movies_app/domain/repo_contract/recommended_movies_repo.dart';
 
+import '../../data/models/movie.dart';
 import '../../result.dart';
 
 class GetRecommendedMoviesUseCase {
@@ -8,7 +8,7 @@ class GetRecommendedMoviesUseCase {
 
   GetRecommendedMoviesUseCase({required this.repo});
 
-  Future<Result<List<RecommendedMovie>>> execute() {
+  Future<Result<List<Movie>>> execute() {
     return repo.getRecommendedMovies();
   }
 }

@@ -1,7 +1,8 @@
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_contract/recommended_movies_data_source_contract.dart';
-import 'package:movies_app/data/models/recommended_movie_response/recommended_movie.dart';
 import 'package:movies_app/result.dart';
+
+import '../models/movie.dart';
 
 class RecommendedMoviesApiDataSourceImpl extends RecommendedMoviesDataSource {
   ApiManager apiManager;
@@ -9,7 +10,7 @@ class RecommendedMoviesApiDataSourceImpl extends RecommendedMoviesDataSource {
   RecommendedMoviesApiDataSourceImpl({required this.apiManager});
 
   @override
-  Future<Result<List<RecommendedMovie>>> getRecommendedMovies() {
+  Future<Result<List<Movie>>> getRecommendedMovies() {
     return apiManager.getRecommendedMovies();
   }
 }

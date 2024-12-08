@@ -1,7 +1,8 @@
 import 'package:movies_app/result.dart';
 
-import '../models/popular_movie_response/popular_movie.dart';
+import '../models/movie.dart';
+
 
 abstract class PopularMoviesDataSource {
-  Future<Result<List<PopularMovie>>> getPopularMovies();
+  Future<Result<List<Movie>>> getPopularMovies();
 }

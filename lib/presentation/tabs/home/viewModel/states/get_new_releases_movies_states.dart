@@ -1,4 +1,5 @@
-import '../../../../../data/models/new_release_movie_response/new_releases_movie.dart';
+
+import '../../../../../data/models/movie.dart';
 
 sealed class GetNewReleasesMoviesState {}
 
@@ -7,7 +8,7 @@ class GetNewReleasesMoviesInitialState extends GetNewReleasesMoviesState {}
 class GetNewReleasesMoviesLoadingState extends GetNewReleasesMoviesState {}
 
 class GetNewReleasesMoviesSuccessState extends GetNewReleasesMoviesState {
-  List<NewReleaseMovie> list;
+  List<Movie> list;
 
   GetNewReleasesMoviesSuccessState({required this.list});
 }

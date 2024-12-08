@@ -1,7 +1,7 @@
-import '../../data/models/recommended_movie_response/recommended_movie.dart';
+import '../../data/models/movie.dart';
 import '../../result.dart';
 
 abstract class RecommendedMoviesRepo{
-  Future<Result<List<RecommendedMovie>>> getRecommendedMovies();
+  Future<Result<List<Movie>>> getRecommendedMovies();
 
 }
