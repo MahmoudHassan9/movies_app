@@ -2,10 +2,19 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/presentation/common/loading_widget.dart';
-import 'package:movies_app/presentation/tabs/home/viewModel/home_view_model.dart';
-import 'package:movies_app/presentation/tabs/home/viewModel/home_view_model_states.dart';
 
+import 'package:movies_app/core/utils/app_constants.dart';
+import 'package:movies_app/data/api/api_manager.dart';
+import 'package:movies_app/data/data_source_impl/popular_movies_api_data_source.dart';
+import 'package:movies_app/data/repo_impl/popular_movies_repo_impl.dart';
+import 'package:movies_app/domain/repo_contract/popular_movies_repo.dart';
+import 'package:movies_app/domain/usecases/get_popular_movies_use_case.dart';
+
+import 'package:movies_app/presentation/common/loading_widget.dart';
+import 'package:movies_app/presentation/tabs/home/viewModel/cubits/popular_movies_cubit.dart';
+import 'package:movies_app/routing/routes.dart';
+
+import '../viewModel/states/get_popular_movies_states.dart';
 import 'movies_slider_image.dart';
 
 class MoviesSlider extends StatefulWidget {
@@ -18,32 +27,54 @@ class MoviesSlider extends StatefulWidget {
 class _MoviesSliderState extends State<MoviesSlider> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeViewModel, HomeViewModelState>(
-      builder: (BuildContext context, HomeViewModelState state) {
-        switch (state) {
-          case GetPopularMoviesInitialState():
-          case GetPopularMoviesLoadingState():
-            return SizedBox(
-              height: 289.h,
-              child: const LoadingWidget(),
-            );
-          case GetPopularMoviesSuccessState():
-            {
-              var images = state.list
-                  .map(
-                    (movie) => MoviesImageSlider(
-                      movie: movie,
-                    ),
-                  )
-                  .toList();
-              return slider(images: images);
-            }
-          case GetPopularMoviesErrorState():
-            return const Text('Error');
-        }
-      },
+    return BlocProvider(
+      create: (BuildContext context) => PopularMoviesCubit(
+        getPopularMoviesUseCase: GetPopularMoviesUseCase(
+          repo: PopularMoviesRepoImpl(
+            dataSource: PopularMoviesApiDataSourceImpl(
+              apiManager: ApiManager(),
+            ),
+          ),
+        ),
+      )..getPopularMovies(),
+      child: BlocBuilder<PopularMoviesCubit, GetPopularMoviesState>(
+        builder: (BuildContext context, GetPopularMoviesState state) {
+          switch (state) {
+            case GetPopularMoviesLoadingState():
+              return SizedBox(
+                height: 289.h,
+                child: const LoadingWidget(),
+              );
+            case GetPopularMoviesSuccessState():
+              {
+                var images = state.list
+                    .map(
+                      (movie) => GestureDetector(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.movieDetails,
+                            arguments: movie,
+                          );
+                        },
+                        child: MoviesImageSlider(
+                          movie: movie,
+                        ),
+                      ),
+                    )
+                    .toList();
+                return slider(images: images);
+              }
+            case GetPopularMoviesErrorState():
+              return const Text('Error');
+            case GetPopularMoviesInitialState():
+              return const SizedBox();
+          }
+        },
+      ),
     );
   }
+
 //
   Widget slider({required images}) => CarouselSlider(
         items: images,
@@ -55,8 +86,8 @@ class _MoviesSliderState extends State<MoviesSlider> {
           enableInfiniteScroll: true,
           reverse: false,
           autoPlay: true,
-          autoPlayInterval: const Duration(seconds: 3),
-          autoPlayAnimationDuration: const Duration(milliseconds: 800),
+          autoPlayInterval: const Duration(seconds: 6),
+          autoPlayAnimationDuration: const Duration(milliseconds: 2000),
           autoPlayCurve: Curves.fastOutSlowIn,
           enlargeCenterPage: true,
           enlargeFactor: 0.3,
