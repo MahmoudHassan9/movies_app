@@ -18,3 +18,4 @@ class GetPopularMoviesErrorState extends GetPopularMoviesState {
 
   GetPopularMoviesErrorState({required this.exception});
 }
+
