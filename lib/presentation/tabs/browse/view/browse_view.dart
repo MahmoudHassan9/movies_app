@@ -6,6 +6,6 @@ class BrowseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(color: Colors.red,);
+    return Text('abc');
   }
 }

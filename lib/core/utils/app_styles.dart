@@ -9,6 +9,9 @@ abstract class AppStyles {
     fontSize: 14.sp,
     color: Colors.white,
   );
+
+
+  //// abc
   static TextStyle popularMovieDesc = GoogleFonts.inter(
     fontWeight: FontWeight.w400,
     fontSize: 10.sp,
