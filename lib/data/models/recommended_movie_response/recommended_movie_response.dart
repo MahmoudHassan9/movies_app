@@ -1,5 +1,6 @@
 
-import 'package:movies_app/data/models/recommended_movie_response/recommended_movie.dart';
+
+import '../movie.dart';
 
 class RecommendedMovieResponse {
   RecommendedMovieResponse({
@@ -14,7 +15,7 @@ class RecommendedMovieResponse {
     if (json['results'] != null) {
       results = [];
       json['results'].forEach((v) {
-        results?.add(RecommendedMovie.fromJson(v));
+        results?.add(Movie.fromJson(v));
       });
     }
     totalPages = json['total_pages'];
@@ -22,7 +23,7 @@ class RecommendedMovieResponse {
   }
 
   num? page;
-  List<RecommendedMovie>? results;
+  List<Movie>? results;
   num? totalPages;
   num? totalResult;
 

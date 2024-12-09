@@ -9,7 +9,6 @@ import 'package:movies_app/presentation/tabs/home/widgets/recommended_list.dart'
 
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_constants.dart';
-import '../../../../data/models/recommended_movie_response/recommended_movie.dart';
 import '../widgets/movies_slider.dart';
 import '../widgets/new_releases_list.dart';
 
@@ -28,10 +27,10 @@ class _HomeViewState extends State<HomeView> {
       children: [
         const MoviesSlider(),
         SizedBox(
-          height: 30.h,
+          height: 28.h,
         ),
         const NewReleasesList(),
-        SizedBox(height: 30.h,),
+        SizedBox(height: 28.h,),
         const RecommendedList(),
       ],
     );

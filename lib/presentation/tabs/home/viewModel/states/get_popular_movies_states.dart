@@ -1,4 +1,5 @@
-import '../../../../../data/models/popular_movie_response/popular_movie.dart';
+
+import '../../../../../data/models/movie.dart';
 
 sealed class GetPopularMoviesState{}
 
@@ -7,7 +8,7 @@ class GetPopularMoviesInitialState extends GetPopularMoviesState {}
 class GetPopularMoviesLoadingState extends GetPopularMoviesState {}
 
 class GetPopularMoviesSuccessState extends GetPopularMoviesState {
-  List<PopularMovie> list;
+  List<Movie> list;
 
   GetPopularMoviesSuccessState({required this.list});
 }
@@ -17,3 +18,4 @@ class GetPopularMoviesErrorState extends GetPopularMoviesState {
 
   GetPopularMoviesErrorState({required this.exception});
 }
+
