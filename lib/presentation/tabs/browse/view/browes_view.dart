@@ -45,7 +45,7 @@ class _BrowesViewState extends State<BrowesView> {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2, childAspectRatio: 1.2),
-                  itemBuilder: (BuildContext context, int index) => InkWell(
+                  itemBuilder: (BuildContext context, int index) => GestureDetector(
                       onTap: () {
                         Navigator.push(
                             context,

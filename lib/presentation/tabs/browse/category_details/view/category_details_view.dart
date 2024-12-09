@@ -41,12 +41,10 @@ class CategoryDetailsView extends StatelessWidget {
               itemCount: results.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                childAspectRatio: 0.7,
-                crossAxisSpacing: 0,
-                mainAxisSpacing: 0
+                childAspectRatio: 0.5,
               ),
               itemBuilder: (context, index) =>
-                  InkWell(
+                  GestureDetector(
                     onTap: () => print(results[index].id),
                       child: CategoryDetailsItem(results: results[index])),
             );

@@ -15,11 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> tabs = const [
-    HomeView(),
+  List<Widget> tabs = [
+    const HomeView(),
     SearchView(),
-    BrowesView(),
-    WatchListView(),
+    const BrowesView(),
+    const WatchListView(),
   ];
   int currentIndex = 0;
 

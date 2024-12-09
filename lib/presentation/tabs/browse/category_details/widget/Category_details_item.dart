@@ -18,10 +18,11 @@ class CategoryDetailsItem extends StatelessWidget {
         color: AppColors.scaffoldBg,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Expanded(
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(12.r),
+                borderRadius: BorderRadius.circular(6.r),
                 child: CachedNetworkImage(
                   imageUrl: AppConstants.imageBase + results.posterPath!,
                   fit: BoxFit.fill,
@@ -32,6 +33,7 @@ class CategoryDetailsItem extends StatelessWidget {
               height: 10.h,
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
@@ -43,6 +45,7 @@ class CategoryDetailsItem extends StatelessWidget {
               ],
             ),
             Row(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Icon(
