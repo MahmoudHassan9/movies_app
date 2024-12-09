@@ -11,6 +11,7 @@ import 'package:movies_app/data/models/movie_watch_list_response/movie_wacth_lis
 import 'package:movies_app/presentation/tabs/watch_list/viewModel/cubits/watch_list_cubit.dart';
 import 'package:movies_app/presentation/tabs/watch_list/viewModel/states/watch_list_state.dart';
 
+import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../data/models/movie.dart';
 import '../../../../routing/routes.dart';
@@ -18,6 +19,7 @@ import '../../../common/loading_widget.dart';
 
 class WatchListView extends StatelessWidget {
   const WatchListView({super.key});
+
 //
   @override
   Widget build(BuildContext context) {
@@ -147,26 +149,53 @@ class WatchListView extends StatelessWidget {
         ],
       );
 
-  Widget poster(movie) => CachedNetworkImage(
-        width: 140.w,
-        height: 89.h,
-        imageUrl: movie.posterPath == null
-            ? AppConstants.errorImaga
-            : AppConstants.imageBase + movie.posterPath!,
-        imageBuilder: (context, imageProvider) => Container(
-          // height: 128.h,
-          // width: 97.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4.r),
-            image: DecorationImage(
-              image: imageProvider,
-              fit: BoxFit.cover
+  Widget poster(movie) => Stack(
+        children: [
+          CachedNetworkImage(
+            width: 140.w,
+            height: 89.h,
+            imageUrl: movie.posterPath == null
+                ? AppConstants.errorImaga
+                : AppConstants.imageBase + movie.posterPath!,
+            imageBuilder: (context, imageProvider) => Container(
+              // height: 128.h,
+              // width: 97.w,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4.r),
+                image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+              ),
+            ),
+            placeholder: (context, url) => const LoadingWidget(),
+            errorWidget: (context, url, error) => const Icon(
+              Icons.error,
             ),
           ),
-        ),
-        placeholder: (context, url) => const LoadingWidget(),
-        errorWidget: (context, url, error) => const Icon(
-          Icons.error,
-        ),
+          Positioned(
+            top: 0,
+            left: -5.5.w,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                ImageIcon(
+                  size: 40,
+                  color: movie.isWatchList!
+                      ? AppColors.yellow
+                      : const Color(0xFF514F4F),
+                  const AssetImage(
+                    AppAssets.bookMarkIcon,
+                  ),
+                ),
+                Padding(
+                  padding: REdgeInsets.only(bottom: 6),
+                  child: Icon(
+                    movie.isWatchList! ? Icons.check : Icons.add,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
       );
 }
