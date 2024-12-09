@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
 
+
+
 abstract class AppStyles {
   static TextStyle popularMovieTitle = GoogleFonts.inter(
     fontWeight: FontWeight.w400,
@@ -22,6 +24,28 @@ abstract class AppStyles {
     fontSize: 15.sp,
     color: Colors.white,
   );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   static TextStyle overview = GoogleFonts.inter(
     fontWeight: FontWeight.w400,
     fontSize: 14.sp,
