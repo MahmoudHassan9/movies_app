@@ -44,9 +44,15 @@ class _MoviesImageSliderState extends State<MoviesImageSlider> {
         children: [
           CachedNetworkImage(
             height: 217.h,
+
             imageUrl: widget.movie.backdropPath == null
                 ? AppConstants.errorImaga
                 : AppConstants.imageBase + widget.movie.backdropPath!,
+
+            imageUrl: movie.backdropPath == null
+                ? AppConstants.errorImaga
+                : AppConstants.imageBase + movie.backdropPath!,
+
             imageBuilder: (context, imageProvider) => Container(
               // height: 217.h,
               decoration: BoxDecoration(
@@ -157,7 +163,11 @@ class _MoviesImageSliderState extends State<MoviesImageSlider> {
               height: 8.h,
             ),
             Text(
+
               widget.movie.releaseDate ?? '',
+
+              movie.releaseDate ?? '',
+
               style: AppStyles.popularMovieDesc,
             ),
           ],

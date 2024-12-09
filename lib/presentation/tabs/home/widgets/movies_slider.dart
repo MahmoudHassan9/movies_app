@@ -61,6 +61,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
                           );
                         },
                         child: MoviesImageSlider(
+
                           movie: Movie(
                             id: movie.id,
                             isWatchList: false,
@@ -78,6 +79,9 @@ class _MoviesSliderState extends State<MoviesSlider> {
                             voteAverage: movie.voteAverage,
                             voteCount: movie.voteCount,
                           ),
+
+                          movie: movie,
+
                         ),
                       ),
                     )

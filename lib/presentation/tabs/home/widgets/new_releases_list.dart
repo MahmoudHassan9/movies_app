@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_impl/new_releases_movies_api_data_source_impl.dart';
+
 import 'package:movies_app/data/models/movie.dart';
+
 import 'package:movies_app/data/repo_impl/new_releases_movie_impl.dart';
 import 'package:movies_app/domain/usecases/get_new_releases_movie_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
@@ -97,10 +99,15 @@ class _NewReleasesListState extends State<NewReleasesList> {
                     arguments: state.list[index],
                   );
                 },
+
                 child: NewReleaseItem(
                   movie: Movie.copyWith(
                     state.list[index],
                   ),
+
+                child: newReleasesListItem(
+                  movie: state.list[index],
+
                 ),
               ),
               itemCount: state.list.length,

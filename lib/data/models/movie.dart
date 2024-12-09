@@ -12,7 +12,7 @@ class Movie {
     this.releaseDate,
     this.title,
     this.video,
-    this.voteAverage,
+    this.voteAverage
     this.voteCount,
     this.isWatchList = false,
   });
@@ -35,7 +35,8 @@ class Movie {
       isWatchList: movie.isWatchList ?? false,
       id: movie.id,
     );
-  }
+  }=======
+    this.voteCount,});
 
   Movie.fromJson(dynamic json) {
     adult = json['adult'];
@@ -97,6 +98,12 @@ class Movie {
   bool? isWatchList;
   List<num>? genreIds;
   dynamic id;
+
+  bool? adult;
+  String? backdropPath;
+  List<num>? genreIds;
+  num? id;
+
   String? originalLanguage;
   String? originalTitle;
   String? overview;
@@ -126,4 +133,9 @@ class Movie {
     map['vote_count'] = voteCount;
     return map;
   }
+
 }
+
+
+}
+

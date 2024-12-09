@@ -16,6 +16,7 @@ import '../../../../core/utils/app_constants.dart';
 import '../../../../core/utils/app_styles.dart';
 import '../../../../data/api/api_manager.dart';
 import '../../../../data/models/movie.dart';
+
 import '../../watch_list/viewModel/cubits/watch_list_cubit.dart';
 import '../viewModel/states/recommended_movie_state.dart';
 
@@ -80,6 +81,7 @@ class _RecommendedListState extends State<RecommendedList> {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) => GestureDetector(
+
                   onTap: () {
                     Navigator.pushNamed(
                       context,
@@ -92,6 +94,19 @@ class _RecommendedListState extends State<RecommendedList> {
                       state.list[index],
                     ),
                   )),
+
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    AppRoutes.movieDetails,
+                    arguments: state.list[index],
+                  );
+                },
+                child: recommendedListItem(
+                  movie: state.list[index],
+                ),
+              ),
+
               itemCount: state.list.length,
               separatorBuilder: (context, index) => SizedBox(
                 width: 14.w,
@@ -103,6 +118,7 @@ class _RecommendedListState extends State<RecommendedList> {
     );
   }
 }
+
 
 class RecommendedListItem extends StatefulWidget {
   const RecommendedListItem({super.key, required this.movie});
@@ -134,6 +150,26 @@ class _RecommendedListItemState extends State<RecommendedListItem> {
                   image: DecorationImage(
                     image: imageProvider,
                     fit: BoxFit.cover,
+  Widget recommendedListItem({required Movie movie}) => Column(
+        children: [
+          Stack(
+            children: [
+              CachedNetworkImage(
+                height: 128.h,
+                width: 97.w,
+                imageUrl: movie.posterPath == null
+                    ? AppConstants.errorImaga
+                    : AppConstants.imageBase + movie.posterPath!,
+                imageBuilder: (context, imageProvider) => Container(
+                  // height: 128.h,
+                  // width: 97.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4.r),
+                    image: DecorationImage(
+                      image: imageProvider,
+                      fit: BoxFit.cover,
+                    ),
+
                   ),
                 ),
               ),
@@ -182,6 +218,7 @@ class _RecommendedListItemState extends State<RecommendedListItem> {
                   ],
                 ),
               ),
+
             ),
           ],
         ),
@@ -193,6 +230,58 @@ class _RecommendedListItemState extends State<RecommendedListItem> {
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(4.r),
               bottomRight: Radius.circular(4.r),
+
+            ],
+          ),
+          Container(
+            width: 97.w,
+            padding: REdgeInsets.only(top: 6, bottom: 10, left: 6, right: 6),
+            decoration: BoxDecoration(
+              color: AppColors.grayAccent,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(4.r),
+                bottomRight: Radius.circular(4.r),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.star,
+                      color: AppColors.yellow,
+                      size: 15,
+                    ),
+                    SizedBox(
+                      width: 5.w,
+                    ),
+                    Text(
+                      movie.voteAverage.toString(),
+                      style: AppStyles.rateText,
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  movie.title!,
+                  style: AppStyles.rateText,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(
+                  height: 5.h,
+                ),
+                Text(
+                  movie.releaseDate!,
+                  style: AppStyles.popularMovieDesc.copyWith(fontSize: 8),
+                ),
+              ],
+
             ),
           ),
           child: Column(

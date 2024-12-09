@@ -10,4 +10,5 @@ abstract class AppAssets {
   static const checkIcon = '$base/check_icon.png';
   static const playButtonIcon = '$base/play_button_icon.png';
   static const moviesIcon = '$base/movies_icon.png';
+  static const playButtonIcon = '$base/play_button_icon.png';
 }
