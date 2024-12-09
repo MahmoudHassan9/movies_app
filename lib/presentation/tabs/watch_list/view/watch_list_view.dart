@@ -18,7 +18,7 @@ import '../../../common/loading_widget.dart';
 
 class WatchListView extends StatelessWidget {
   const WatchListView({super.key});
-
+//
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<WatchListCubit, WatchListState>(
