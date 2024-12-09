@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/utils/app_assets.dart';
-import 'package:movies_app/presentation/tabs/browse/view/browse_view.dart';
 import 'package:movies_app/presentation/tabs/search/view/search_view.dart';
 import 'package:movies_app/presentation/tabs/watch_list/view/watch_list_view.dart';
 
+import '../../tabs/browse/view/browes_view.dart';
 import '../../tabs/home/view/home_view.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,11 +15,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  List<Widget> tabs = const [
-    HomeView(),
+  List<Widget> tabs = [
+    const HomeView(),
     SearchView(),
-    BrowseView(),
-    WatchListView(),
+    const BrowesView(),
+    const WatchListView(),
   ];
   int currentIndex = 0;
 

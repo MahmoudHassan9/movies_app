@@ -6,9 +6,8 @@ abstract class AppColors {
   static const selectedBottomNavBarItem = Color(0xFFFFBB3B);
   static const unSelectedBottomNavBarItem = Color(0xFFC6C6C6);
   static const yellow = Color(0xFFFFBB3B);
+  static const searchBar = Color(0xFF514F4F);
   static const gray = Color(0xFF282A28);
   static const grayAccent= Color(0xFF343534);
   static const overview = Color(0xFFCBCBCB);
-
-
 }
