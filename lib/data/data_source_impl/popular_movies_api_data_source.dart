@@ -1,7 +1,9 @@
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_contract/popular_movies_data_source_contract.dart';
-import 'package:movies_app/data/models/popular_movie.dart';
 import 'package:movies_app/result.dart';
+
+import '../models/movie.dart';
+
 
 class PopularMoviesApiDataSourceImpl extends PopularMoviesDataSource {
   ApiManager apiManager;
@@ -9,7 +11,7 @@ class PopularMoviesApiDataSourceImpl extends PopularMoviesDataSource {
   PopularMoviesApiDataSourceImpl({required this.apiManager});
 
   @override
-  Future<Result<List<PopularMovie>>> getPopularMovies() {
+  Future<Result<List<Movie>>> getPopularMovies() {
     return apiManager.getPopularMovies();
   }
 }
