@@ -3,12 +3,10 @@ import 'dart:developer';
 
 import 'package:http/http.dart' as http;
 import 'package:movies_app/data/models/movie_categories_details/result_response.dart';
-import 'package:movies_app/data/models/popular_movie.dart';
-import 'package:movies_app/data/models/popular_movie_response.dart';
 
 import '../../result.dart';
 import '../models/movie_categories/genre_response.dart';
-=======
+
 import 'package:movies_app/data/models/movie.dart';
 import 'package:movies_app/data/models/new_release_movie_response/new_release_moview_response.dart';
 import 'package:movies_app/data/models/popular_movie_response/popular_movie_response.dart';
@@ -61,10 +59,8 @@ class ApiManager {
   }
 
   static Future<ResultResponse> getResults(String genreId) async {
-    Uri url = Uri.https(baseURL, resultsEndPoint, {
-      'with_genres': genreId,
-      'page': '1'
-    });
+    Uri url = Uri.https(
+        baseURL, resultsEndPoint, {'with_genres': genreId, 'page': '1'});
     var response = await http.get(url, headers: {
       'Authorization': apiKey,
     });
@@ -77,10 +73,8 @@ class ApiManager {
   }
 
   static Future<ResultResponse> getSearchResults(String query) async {
-    Uri url = Uri.https(baseURL, searchEngineEndPoint, {
-      'query': query,
-      'page': '1'
-    });
+    Uri url =
+        Uri.https(baseURL, searchEngineEndPoint, {'query': query, 'page': '1'});
     var response = await http.get(url, headers: {
       'Authorization': apiKey,
     });
@@ -89,6 +83,8 @@ class ApiManager {
       return ResultResponse.fromJson(json);
     } else {
       throw Exception('Failed ${response.statusCode}');
+    }
+  }
 
   Future<Result<List<Movie>>> getNewReleasesMovies() async {
     Uri url = Uri.https(

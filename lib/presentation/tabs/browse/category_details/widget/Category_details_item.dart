@@ -25,7 +25,7 @@ class CategoryDetailsItem extends StatelessWidget {
                 borderRadius: BorderRadius.circular(6.r),
                 child: CachedNetworkImage(
                   imageUrl: AppConstants.imageBase + results.posterPath!,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),

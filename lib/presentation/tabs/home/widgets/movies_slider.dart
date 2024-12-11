@@ -61,23 +61,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
                           );
                         },
                         child: MoviesImageSlider(
-                          movie: Movie(
-                            id: movie.id,
-                            isWatchList: false,
-                            title: movie.title,
-                            backdropPath: movie.backdropPath,
-                            overview: movie.overview,
-                            releaseDate: movie.releaseDate,
-                            posterPath: movie.posterPath,
-                            popularity: movie.popularity,
-                            adult: movie.adult,
-                            genreIds: movie.genreIds,
-                            originalLanguage: movie.originalLanguage,
-                            originalTitle: movie.originalTitle,
-                            video: movie.video,
-                            voteAverage: movie.voteAverage,
-                            voteCount: movie.voteCount,
-                          ),
+                          movie: Movie.copyWith(movie),
                         ),
                       ),
                     )

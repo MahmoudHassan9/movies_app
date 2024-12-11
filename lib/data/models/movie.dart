@@ -92,22 +92,6 @@ class Movie {
     return map;
   }
 
-  bool? adult;
-  String? backdropPath;
-  bool? isWatchList;
-  List<num>? genreIds;
-  dynamic id;
-  String? originalLanguage;
-  String? originalTitle;
-  String? overview;
-  num? popularity;
-  String? posterPath;
-  String? releaseDate;
-  String? title;
-  bool? video;
-  num? voteAverage;
-  num? voteCount;
-
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['adult'] = adult;
@@ -126,4 +110,22 @@ class Movie {
     map['vote_count'] = voteCount;
     return map;
   }
+
+  bool? adult;
+  String? backdropPath;
+  bool? isWatchList;
+  List<num>? genreIds;
+  dynamic id;
+  String? originalLanguage;
+  String? originalTitle;
+  String? overview;
+  num? popularity;
+  String? posterPath;
+  String? releaseDate;
+  String? title;
+  bool? video;
+  num? voteAverage;
+  num? voteCount;
+
+
 }

@@ -15,7 +15,6 @@ abstract class AppStyles {
     color: const Color(0xFFB5B4B4),
   );
 
-
   static TextStyle browseTitle = GoogleFonts.inter(
     color: Colors.white,
     fontSize: 25.sp,
@@ -52,7 +51,7 @@ abstract class AppStyles {
     color: Colors.grey,
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-=======
+  );
   static TextStyle homeListTitle = GoogleFonts.inter(
     fontWeight: FontWeight.w400,
     fontSize: 15.sp,
