@@ -8,6 +8,7 @@ import 'package:movies_app/core/utils/app_colors.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/data/models/movie_watch_list_response/movie_wacth_list.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/popular_movies_cubit.dart';
 import 'package:movies_app/presentation/tabs/watch_list/viewModel/cubits/watch_list_cubit.dart';
@@ -21,7 +22,7 @@ class MoviesImageSlider extends StatefulWidget {
     required this.movie,
   });
 
-  final Movie movie;
+  final MovieEntity movie;
 
   @override
   State<MoviesImageSlider> createState() => _MoviesImageSliderState();

@@ -5,10 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/di/di.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_impl/new_releases_movies_api_data_source_impl.dart';
 import 'package:movies_app/data/models/movie.dart';
 import 'package:movies_app/data/repo_impl/new_releases_movie_impl.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 import 'package:movies_app/domain/usecases/get_new_releases_movie_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/new_releases_movie_cubit.dart';
@@ -34,15 +36,8 @@ class _NewReleasesListState extends State<NewReleasesList> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => NewReleasesMoviesCubit(
-        getNewReleasesMovieUseCase: GetNewReleasesMovieUseCase(
-          repo: NewReleaseMovieRepoImpl(
-            newReleasesMoviesDataSource: NewReleasesMoviesDataSourceImpl(
-              apiManager: ApiManager(),
-            ),
-          ),
-        ),
-      )..getNewReleasesMovies(),
+      create: (BuildContext context) =>
+          getIt<NewReleasesMoviesCubit>()..getNewReleasesMovies(),
       child: BlocBuilder<NewReleasesMoviesCubit, GetNewReleasesMoviesState>(
         builder: (BuildContext context, GetNewReleasesMoviesState state) {
           switch (state) {
@@ -98,9 +93,7 @@ class _NewReleasesListState extends State<NewReleasesList> {
                   );
                 },
                 child: NewReleaseItem(
-                  movie: Movie.copyWith(
-                    state.list[index],
-                  ),
+                  movie: state.list[index],
                 ),
               ),
               itemCount: state.list.length,
@@ -118,7 +111,7 @@ class _NewReleasesListState extends State<NewReleasesList> {
 class NewReleaseItem extends StatefulWidget {
   const NewReleaseItem({super.key, required this.movie});
 
-  final Movie movie;
+  final MovieEntity movie;
 
   @override
   State<NewReleaseItem> createState() => _NewReleaseItemState();

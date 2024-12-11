@@ -1,3 +1,5 @@
+import 'package:movies_app/domain/entity/movie_entity.dart';
+
 class Movie {
   Movie({
     this.adult,
@@ -111,6 +113,17 @@ class Movie {
     return map;
   }
 
+  MovieEntity toMovieEntity() => MovieEntity(
+        isWatchList: isWatchList ?? false,
+        backdropPath: backdropPath,
+        overview: overview,
+        posterPath: posterPath,
+        voteAverage: voteAverage,
+        releaseDate: releaseDate,
+        id: id,
+        title: title,
+      );
+
   bool? adult;
   String? backdropPath;
   bool? isWatchList;
@@ -126,6 +139,4 @@ class Movie {
   bool? video;
   num? voteAverage;
   num? voteCount;
-
-
 }

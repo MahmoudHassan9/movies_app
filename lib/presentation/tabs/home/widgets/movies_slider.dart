@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/di/di.dart';
 import 'package:movies_app/core/utils/app_constants.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/api/firebase_service.dart';
@@ -31,15 +32,8 @@ class _MoviesSliderState extends State<MoviesSlider> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => PopularMoviesCubit(
-        getPopularMoviesUseCase: GetPopularMoviesUseCase(
-          repo: PopularMoviesRepoImpl(
-            dataSource: PopularMoviesApiDataSourceImpl(
-              apiManager: ApiManager(),
-            ),
-          ),
-        ),
-      )..getPopularMovies(),
+      create: (BuildContext context) =>
+          getIt<PopularMoviesCubit>()..getPopularMovies(),
       child: BlocBuilder<PopularMoviesCubit, GetPopularMoviesState>(
         builder: (BuildContext context, GetPopularMoviesState state) {
           switch (state) {
@@ -61,7 +55,7 @@ class _MoviesSliderState extends State<MoviesSlider> {
                           );
                         },
                         child: MoviesImageSlider(
-                          movie: Movie.copyWith(movie),
+                          movie: movie,
                         ),
                       ),
                     )
