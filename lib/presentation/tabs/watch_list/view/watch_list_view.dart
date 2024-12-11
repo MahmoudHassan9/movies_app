@@ -8,6 +8,7 @@ import 'package:movies_app/core/utils/app_assets.dart';
 import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/data/api/firebase_service.dart';
 import 'package:movies_app/data/models/movie_watch_list_response/movie_wacth_list.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 import 'package:movies_app/presentation/tabs/watch_list/viewModel/cubits/watch_list_cubit.dart';
 import 'package:movies_app/presentation/tabs/watch_list/viewModel/states/watch_list_state.dart';
 
@@ -125,7 +126,7 @@ class WatchListView extends StatelessWidget {
         ),
       );
 
-  Widget watchListItem({required Movie movie}) => Row(
+  Widget watchListItem({required MovieEntity movie}) => Row(
         children: [
           poster(movie),
           SizedBox(

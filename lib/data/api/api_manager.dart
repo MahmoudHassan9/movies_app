@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart' as http;
+import 'package:injectable/injectable.dart';
 import 'package:movies_app/data/models/movie_categories_details/result_response.dart';
 
 import '../../result.dart';
@@ -15,6 +16,7 @@ import 'package:movies_app/data/models/recommended_movie_response/recommended_mo
 import '../../result.dart';
 import '../models/more_like_this_movies_response/more_like_this_response.dart';
 
+@singleton
 class ApiManager {
   static const String baseURL = 'api.themoviedb.org';
   static const String popularEndPoint = '/3/movie/popular';

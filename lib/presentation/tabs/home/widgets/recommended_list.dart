@@ -5,11 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/data/data_source_impl/recommended_movies_api_data_source_impl.dart';
 import 'package:movies_app/data/repo_impl/recommended_movies_repo_impl.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 import 'package:movies_app/domain/usecases/get_recommended_movies_use_case.dart';
 import 'package:movies_app/presentation/common/loading_widget.dart';
 import 'package:movies_app/presentation/tabs/home/viewModel/cubits/recommended_movie_cubit.dart';
 import 'package:movies_app/routing/routes.dart';
 
+import '../../../../core/di/di.dart';
 import '../../../../core/utils/app_assets.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_constants.dart';
@@ -30,15 +32,8 @@ class _RecommendedListState extends State<RecommendedList> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => RecommendedMovieCubit(
-        useCase: GetRecommendedMoviesUseCase(
-          repo: RecommendedMoviesRepoImpl(
-            recommendedMoviesDataSource: RecommendedMoviesApiDataSourceImpl(
-              apiManager: ApiManager(),
-            ),
-          ),
-        ),
-      )..getRecommendedMovies(),
+      create: (context) =>
+          getIt<RecommendedMovieCubit>()..getRecommendedMovies(),
       child: BlocBuilder<RecommendedMovieCubit, RecommendedMovieState>(
         builder: (context, state) {
           switch (state) {
@@ -88,9 +83,7 @@ class _RecommendedListState extends State<RecommendedList> {
                     );
                   },
                   child: RecommendedListItem(
-                    movie: Movie.copyWith(
-                      state.list[index],
-                    ),
+                    movie: state.list[index],
                   )),
               itemCount: state.list.length,
               separatorBuilder: (context, index) => SizedBox(
@@ -107,7 +100,7 @@ class _RecommendedListState extends State<RecommendedList> {
 class RecommendedListItem extends StatefulWidget {
   const RecommendedListItem({super.key, required this.movie});
 
-  final Movie movie;
+  final MovieEntity movie;
 
   @override
   State<RecommendedListItem> createState() => _RecommendedListItemState();

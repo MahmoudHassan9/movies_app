@@ -3,11 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies_app/core/di/di.dart';
 import 'package:movies_app/core/utils/app_assets.dart';
 import 'package:movies_app/core/utils/app_styles.dart';
 import 'package:movies_app/data/api/api_manager.dart';
 import 'package:movies_app/data/data_source_impl/more_like_this_movies_api_data_source_impl.dart';
 import 'package:movies_app/data/repo_impl/more_like_this_repo_impl.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 import 'package:movies_app/domain/usecases/get_more_like_this_movies_use_case.dart';
 import 'package:movies_app/presentation/screens/movie_details/viewModel/cubit/more_like_this_movies_cubit.dart';
 import 'package:movies_app/presentation/screens/movie_details/viewModel/states/more_like_this_movie_state.dart';
@@ -17,6 +19,7 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_constants.dart';
 import '../../../../data/models/movie.dart';
 import '../../../common/loading_widget.dart';
+import '../../../tabs/watch_list/viewModel/cubits/watch_list_cubit.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   const MovieDetailsScreen({
@@ -24,7 +27,7 @@ class MovieDetailsScreen extends StatelessWidget {
     required this.movie,
   });
 
-  final Movie movie;
+  final MovieEntity movie;
 
   @override
   Widget build(BuildContext context) {
@@ -236,15 +239,8 @@ class MovieDetailsScreen extends StatelessWidget {
       );
 
   Widget moreLikeThisList() => BlocProvider(
-        create: (context) => MoreLikeThisMoviesCubit(
-          getMoreLikeThisMoviesUseCase: GetMoreLikeThisMoviesUseCase(
-            repo: MoreLikeThisMoviesRepoImpl(
-              moreLikeThisMoviesDataSource: MoreLikeThisMoviesApiDataSourceImpl(
-                apiManager: ApiManager(),
-              ),
-            ),
-          ),
-        )..getMoreLikeThisMovies(movie.id.toString()),
+        create: (context) => getIt<MoreLikeThisMoviesCubit>()
+          ..getMoreLikeThisMovies(movie.id.toString()),
         child: BlocBuilder<MoreLikeThisMoviesCubit, MoreLikeThisMovieState>(
           builder: (BuildContext context, MoreLikeThisMovieState state) {
             switch (state) {
@@ -257,13 +253,13 @@ class MovieDetailsScreen extends StatelessWidget {
                 );
               case GetMoreLikeThisMovieSuccessState():
                 return Container(
-                  height: 250.h,
+                  height: 260.h,
                   padding: REdgeInsets.only(
                     top: 15,
                     bottom: 0,
                     left: 22,
                   ),
-                  color: AppColors.grayAccent,
+                  color: AppColors.gray,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
@@ -286,7 +282,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                 arguments: state.list[index],
                               );
                             },
-                            child: moreLikeThisListItem(
+                            child: MoreLikeThisListItem(
                               movie: state.list[index],
                             ),
                           ),
@@ -305,50 +301,79 @@ class MovieDetailsScreen extends StatelessWidget {
           },
         ),
       );
+}
 
-  Widget moreLikeThisListItem({required Movie movie}) => Column(
-        children: [
-          Stack(
-            children: [
-              CachedNetworkImage(
-                height: 128.h,
-                width: 97.w,
-                imageUrl: movie.posterPath == null
-                    ? AppConstants.errorImaga
-                    : AppConstants.imageBase + movie.posterPath!,
-                imageBuilder: (context, imageProvider) => Container(
-                  // height: 128.h,
-                  // width: 97.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(4.r),
-                    image: DecorationImage(
-                      image: imageProvider,
-                      fit: BoxFit.cover,
-                    ),
+class MoreLikeThisListItem extends StatefulWidget {
+  const MoreLikeThisListItem({super.key, required this.movie});
+
+  final MovieEntity movie;
+
+  @override
+  State<MoreLikeThisListItem> createState() => _MoreLikeThisListItemState();
+}
+
+class _MoreLikeThisListItemState extends State<MoreLikeThisListItem> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Stack(
+          children: [
+            CachedNetworkImage(
+              height: 128.h,
+              width: 97.w,
+              imageUrl: widget.movie.posterPath == null
+                  ? AppConstants.errorImaga
+                  : AppConstants.imageBase + widget.movie.posterPath!,
+              imageBuilder: (context, imageProvider) => Container(
+                // height: 128.h,
+                // width: 97.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(4.r),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
                   ),
                 ),
-                placeholder: (context, url) => const LoadingWidget(),
-                errorWidget: (context, url, error) => const Icon(
-                  Icons.error,
-                ),
               ),
-              Positioned(
-                top: 0,
-                left: -5.5.w,
+              placeholder: (context, url) => const LoadingWidget(),
+              errorWidget: (context, url, error) => const Icon(
+                Icons.error,
+              ),
+            ),
+            Positioned(
+              top: 0,
+              left: -5.5.w,
+              child: GestureDetector(
+                onTap: () {
+                  widget.movie.isWatchList = !widget.movie.isWatchList!;
+                  if (widget.movie.isWatchList!) {
+                    BlocProvider.of<WatchListCubit>(context)
+                        .updateWatchList(widget.movie);
+
+                    BlocProvider.of<WatchListCubit>(context)
+                        .ids
+                        .add(widget.movie.id);
+
+                    setState(() {});
+                  }
+                },
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    const ImageIcon(
+                    ImageIcon(
                       size: 40,
-                      color: Color(0xFF514F4F),
-                      AssetImage(
+                      color: widget.movie.isWatchList!
+                          ? AppColors.yellow
+                          : const Color(0xFF514F4F),
+                      const AssetImage(
                         AppAssets.bookMarkIcon,
                       ),
                     ),
                     Padding(
                       padding: REdgeInsets.only(bottom: 6),
-                      child: const Icon(
-                        Icons.add,
+                      child: Icon(
+                        widget.movie.isWatchList! ? Icons.check : Icons.add,
                         color: Colors.white,
                         size: 20,
                       ),
@@ -356,58 +381,60 @@ class MovieDetailsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+          ],
+        ),
+        Container(
+          width: 97.w,
+          padding: REdgeInsets.only(top: 6, bottom: 10, left: 6, right: 6),
+          decoration: BoxDecoration(
+            color: AppColors.grayAccent,
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(4.r),
+              bottomRight: Radius.circular(4.r),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Icon(
+                    Icons.star,
+                    color: AppColors.yellow,
+                    size: 15,
+                  ),
+                  SizedBox(
+                    width: 5.w,
+                  ),
+                  Text(
+                    widget.movie.voteAverage.toString(),
+                    style: AppStyles.rateText,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                widget.movie.title!,
+                style: AppStyles.rateText,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              SizedBox(
+                height: 5.h,
+              ),
+              Text(
+                widget.movie.releaseDate!,
+                style: AppStyles.popularMovieDesc.copyWith(fontSize: 8),
+              ),
             ],
           ),
-          Container(
-            width: 97.w,
-            padding: REdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: AppColors.gray,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(4.r),
-                bottomRight: Radius.circular(4.r),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      color: AppColors.yellow,
-                      size: 15,
-                    ),
-                    SizedBox(
-                      width: 5.w,
-                    ),
-                    Text(
-                      movie.voteAverage.toString(),
-                      style: AppStyles.rateText,
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  movie.title!,
-                  style: AppStyles.rateText,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(
-                  height: 5.h,
-                ),
-                Text(
-                  movie.releaseDate!,
-                  style: AppStyles.rateText,
-                ),
-              ],
-            ),
-          ),
-        ],
-      );
+        ),
+      ],
+    );
+  }
 }

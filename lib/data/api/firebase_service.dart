@@ -1,13 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:injectable/injectable.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
 
 import '../../result.dart';
 import '../models/movie.dart';
 
+@singleton
 class FirebaseService {
   CollectionReference watchListCollection =
       FirebaseFirestore.instance.collection('watchList');
 
-  Future<Result<bool>> addToWatchList(Movie movie) async {
+  Future<Result<bool>> addToWatchList(MovieEntity movie) async {
     try {
       await watchListCollection.doc().set(movie.toFireStore());
       return Success(data: true);

@@ -1,5 +1,6 @@
 
-import '../../../../../data/models/movie.dart';
+import 'package:movies_app/domain/entity/movie_entity.dart';
+
 
 sealed class GetPopularMoviesState{}
 
@@ -8,7 +9,7 @@ class GetPopularMoviesInitialState extends GetPopularMoviesState {}
 class GetPopularMoviesLoadingState extends GetPopularMoviesState {}
 
 class GetPopularMoviesSuccessState extends GetPopularMoviesState {
-  List<Movie> list;
+  List<MovieEntity> list;
 
   GetPopularMoviesSuccessState({required this.list});
 }
