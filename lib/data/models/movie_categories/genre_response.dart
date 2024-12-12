@@ -1,16 +1,16 @@
 import 'Genres.dart';
 
-class GenreResponse {
-  List<Genres>? genres;
-  GenreResponse({
+class CategoriesResponse {
+  List<Category>? genres;
+  CategoriesResponse({
     this.genres,
   });
 
-  GenreResponse.fromJson(dynamic json) {
+  CategoriesResponse.fromJson(dynamic json) {
     if (json['genres'] != null) {
       genres = [];
       json['genres'].forEach((v) {
-        genres?.add(Genres.fromJson(v));
+        genres?.add(Category.fromJson(v));
       });
     }
   }

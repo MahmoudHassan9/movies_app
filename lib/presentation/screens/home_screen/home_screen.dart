@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> tabs = [
     const HomeView(),
     SearchView(),
-    const BrowesView(),
+    const BrowseView(),
     const WatchListView(),
   ];
   int currentIndex = 0;
