@@ -2,14 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/app_styles.dart';
-import 'package:movies_app/data/models/movie_categories_details/Results.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_constants.dart';
+import '../../../../data/models/movie.dart';
 
 class SearchItemWidget extends StatelessWidget {
-  final Results results;
+  final Movie movie;
 
-  const SearchItemWidget({super.key, required this.results});
+  const SearchItemWidget({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class SearchItemWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CachedNetworkImage(
-            imageUrl: results.posterPath != null
-                ? AppConstants.imageBase + results.posterPath!
+            imageUrl: movie.posterPath != null
+                ? AppConstants.imageBase + movie.posterPath!
                 : AppConstants.imageBase,
             width: 100.w,
             height: 150.h,
@@ -38,20 +38,20 @@ class SearchItemWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  results.originalTitle ?? AppConstants.noTitle,
+                  movie.originalTitle ?? AppConstants.noTitle,
                   style: AppStyles.popularMovieTitle.copyWith(fontSize: 16.sp),
                 ),
                 SizedBox(height: 8.h),
                 Text(
-                  results.releaseDate != null
-                      ? '${AppConstants.movieDate} ${results.releaseDate}'
+                  movie.releaseDate != null
+                      ? '${AppConstants.movieDate} ${movie.releaseDate}'
                       : AppConstants.noDate,
                   style: AppStyles.movieDetailsReleaseDate,
                 ),
                 SizedBox(height: 8.h,),
                 Row(
                   children: [
-                    Text(results.voteAverage.toString() ?? '0',style: AppStyles.movieDetailsReleaseDate,),
+                    Text(movie.voteAverage.toString() ?? '0',style: AppStyles.movieDetailsReleaseDate,),
                     Icon(Icons.star, color: AppColors.yellow, size: 16.sp,)
                   ],
                 )

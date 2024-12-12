@@ -1,24 +1,24 @@
-import 'Results.dart';
+import 'package:movies_app/data/models/movie.dart';
 
-class ResultResponse {
+class MovieCategoryResponse {
   num? page;
-  List<Results>? results;
+  List<Movie>? results;
   num? totalPages;
   num? totalResults;
 
-  ResultResponse({
+  MovieCategoryResponse({
     this.page,
     this.results,
     this.totalPages,
     this.totalResults,
   });
 
-  ResultResponse.fromJson(dynamic json) {
+  MovieCategoryResponse.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];
       json['results'].forEach((v) {
-        results?.add(Results.fromJson(v));
+        results?.add(Movie.fromJson(v));
       });
     }
     totalPages = json['total_pages'];

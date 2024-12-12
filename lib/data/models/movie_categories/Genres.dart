@@ -1,12 +1,12 @@
-class Genres {
+class Category {
   num? id;
   String? name;
 
-  Genres({
+  Category({
       this.id, 
       this.name,});
 
-  Genres.fromJson(dynamic json) {
+  Category.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
   }

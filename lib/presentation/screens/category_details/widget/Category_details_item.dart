@@ -2,14 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/core/utils/app_colors.dart';
-import 'package:movies_app/data/models/movie_categories_details/Results.dart';
 import '../../../../../core/utils/app_constants.dart';
 import '../../../../../core/utils/app_styles.dart';
+import '../../../../data/models/movie.dart';
+import '../../../common/loading_widget.dart';
 
 class CategoryDetailsItem extends StatelessWidget {
-  CategoryDetailsItem({super.key, required this.results});
+  const CategoryDetailsItem({super.key, required this.movie});
 
-  Results results;
+  final Movie movie;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,11 @@ class CategoryDetailsItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.r),
                 child: CachedNetworkImage(
-                  imageUrl: AppConstants.imageBase + results.posterPath!,
+                  imageUrl: AppConstants.imageBase + movie.posterPath!,
+                  placeholder: (context, url) => const LoadingWidget(),
+                  errorWidget: (context, url, error) => const Icon(
+                    Icons.error,
+                  ),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -32,17 +37,17 @@ class CategoryDetailsItem extends StatelessWidget {
             SizedBox(
               height: 10.h,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  results.title != null && results.title!.length > 10
-                      ? '${results.title!.substring(0, 10)}..'
-                      : results.title ?? '',
-                  style: AppStyles.movieDetailsName,
-                ),
-              ],
+            Text(
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              movie.title!,
+              // movie.title != null && movie.title!.length > 10
+              //     ? '${movie.title!.substring(0, 10)}..'
+              //     : movie.title ?? '',
+              style: AppStyles.movieDetailsName,
+            ),
+            SizedBox(
+              height: 5.h,
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -53,8 +58,11 @@ class CategoryDetailsItem extends StatelessWidget {
                   color: Colors.yellow,
                   size: 12.sp,
                 ),
+                SizedBox(
+                  width: 5.w,
+                ),
                 Text(
-                  results.voteAverage.toString(),
+                  movie.voteAverage.toString(),
                   style: AppStyles.movieDetailsReleaseDate,
                 ),
               ],
