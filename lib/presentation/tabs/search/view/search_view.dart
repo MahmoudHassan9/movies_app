@@ -170,7 +170,7 @@ class _SearchViewState extends State<SearchView> {
               height: 12.h,
             ),
             Text(
-              'No Movies Yet !',
+              'No Movies found',
               textAlign: TextAlign.center,
               style: AppStyles.homeListTitle,
             ),

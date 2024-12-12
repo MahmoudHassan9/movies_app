@@ -115,7 +115,7 @@ class WatchListView extends StatelessWidget {
                   height: 12.h,
                 ),
                 Text(
-                  'No Movies Yet !',
+                  'No Movies found',
                   textAlign: TextAlign.center,
                   style: AppStyles.homeListTitle,
                 ),
