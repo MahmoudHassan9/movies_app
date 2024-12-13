@@ -11,4 +11,6 @@ abstract class AppAssets {
   static const checkIcon = '$base/check_icon.png';
   static const playButtonIcon = '$base/play_button_icon.png';
   static const moviesIcon = '$base/movies_icon.png';
+  static const splash = '$base/app_logo.png';
+  static const splashBranding = '$base/company_logo.png';
 }

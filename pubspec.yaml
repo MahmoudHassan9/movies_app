@@ -46,6 +46,20 @@ dependencies:
   cloud_firestore: ^5.5.1
   injectable:
   get_it:
+  flutter_native_splash: ^2.4.3
+
+flutter_native_splash:
+  color: "#121312"
+  image: "assets/images/app_logo.png"
+  branding: "assets/images/company_logo.png"
+  android: true
+  ios: true
+  web: false
+
+  android_12:
+    color: "#121312"
+    image: "assets/images/app_logo.png"
+    branding: "assets/images/company_logo.png"
 
 dev_dependencies:
   flutter_test:
